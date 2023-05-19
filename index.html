@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            margin: 24px 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>A32NX TRIM CALCULATOR</h1>
+
+        <input id="input"/>
+
+        <h1>Result <span id="result"></span></h1>
+    </div>
+
+    <script>
+
+        function calculate_trim(cgInput) {
+            const TRIM_SLOPE = -0.2739130435
+
+            const TRIM_INT = 8.456521739
+
+            const adjCG = cgInput < 17 ? 17 : cgInput > 40 ? 40 : cgInput
+
+            console.log({adjCG})
+
+            const result = (TRIM_SLOPE * adjCG) + TRIM_INT
+
+            const direction = result < 0 ? "DN" : "UP"
+
+            return direction + Math.abs(result.toFixed(1))
+        }
+
+        const input = document.getElementById("input")
+        const resultSpan = document.getElementById("result")
+
+        input.addEventListener("input", () => {
+            const cgInput = input.value
+            const trimResult = calculate_trim(cgInput)
+            resultSpan.innerText = trimResult
+        })
+
+
+    </script>
+
+</body>
+</html>
